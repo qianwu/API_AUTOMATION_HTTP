@@ -1,0 +1,17 @@
+server:
+  port: 8081
+api:
+  evn: @profile.active@
+#spring:
+#  application:
+#    name: eventbus-test
+
+spring:
+  application:
+    name: aliyun-consumer
+rocketmq:
+  accessKey:
+  secretKey:
+  nameSrvAddr:
+  topic: eventbus-demo-0720
+  groupId: 

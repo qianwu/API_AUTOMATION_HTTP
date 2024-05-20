@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="false">
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+
+
+
+    <!--定义日志文件的存储地址 -->
+
+    <property name="LOG_HOME" value="../logs" />
+
+    <property name="MAX_FILE_SIZE" value="50MB"/>
+
+    <property name="MAX_HISTORY" value="30"/>
+
+
+
+
+    <property name="LOG_PATTERN"
+
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{traceId}] [%thread] %-5level %cyan(%logger{64}) %line - %msg %n"/>
+
+
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+
+            <pattern>${LOG_PATTERN}</pattern>
+
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+
+        </encoder>
+
+    </appender>
+
+
+
+    <!-- 按照每天生成日志文件 -->
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+
+            <!--日志文件输出的文件名 -->
+
+            <FileNamePattern>${LOG_HOME}/%d{yyyy-MM-dd}/stdout.%i.log</FileNamePattern>
+
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+
+            <!--日志文件保留天数 -->
+
+            <MaxHistory>${MAX_HISTORY}</MaxHistory>
+
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+
+            <pattern>${LOG_PATTERN}</pattern>
+
+        </encoder>
+
+    </appender>
+
+
+
+
+    <logger name="com.ikea.eventbus" level="DEBUG" />
+    <logger name="com.aliyun.openservices" level="DEBUG" />
+
+
+
+    <root level="DEBUG">
+
+        <appender-ref ref="STDOUT"/>
+
+    </root>
+
+
+
+
+</configuration>
